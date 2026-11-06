@@ -1,0 +1,35 @@
+<!doctype html>
+<html lang="es">
+  <head>
+    <!-- Codificación de caracteres: permite tildes y ñ. -->
+    <meta charset="UTF-8" />
+    <!-- Íconos: el de la pestaña del navegador y el que se usa al agregar el sitio a la pantalla de inicio en iPhone/iPad. -->
+    <link rel="icon" type="image/png" href="/icon-192.png" />
+    <link rel="apple-touch-icon" href="/apple-touch-icon.png" />
+    <!-- Manifiesto PWA: nombre, colores e íconos para poder instalar el sitio como app. -->
+    <link rel="manifest" href="/manifest.webmanifest" />
+    <!-- Adaptación a celulares. viewport-fit=cover usa toda la pantalla (incluso detrás del notch) y habilita env(safe-area-inset-*) en el CSS. -->
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Color de la barra del navegador/sistema en celulares (el azul institucional). -->
+    <meta name="theme-color" content="#0b4f9c" />
+    <!-- Modo app instalada (sin barras del navegador): primero Android/Chrome, luego iOS (apple-...). El título es el nombre bajo el ícono en iOS. -->
+    <meta name="mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-capable" content="yes" />
+    <meta name="apple-mobile-web-app-title" content="CFL 402" />
+    <meta name="apple-mobile-web-app-status-bar-style" content="default" />
+    <!-- Descripción que muestran Google y otros buscadores. -->
+    <meta name="description" content="Centro de Formación Laboral 402 - Fundación UOCRA. Coronel Vidal, Mar Chiquita. Inscripciones 2027." />
+    <!-- Open Graph: datos para la vista previa al compartir el enlace (WhatsApp, Facebook, etc.). -->
+    <meta property="og:type" content="website" />
+    <meta property="og:locale" content="es_AR" />
+    <meta property="og:title" content="CFL 402 - Fundación UOCRA | Inscripciones 2027" />
+    <meta property="og:description" content="Centro de Formación Laboral 402 en Coronel Vidal - Mar Chiquita. Cursos de oficios, tecnología y gestión." />
+    <!-- Título de la pestaña del navegador. -->
+    <title>CFL 402 - Fundación UOCRA</title>
+  </head>
+  <body>
+    <!-- Punto de montaje: React dibuja toda la página dentro de este div (ver src/main.tsx). -->
+    <div id="root"></div>
+    <script type="module" src="/src/main.tsx"></script>
+  </body>
+</html>
