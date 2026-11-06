@@ -1,0 +1,4 @@
+Foto opcional de cada docente: guardala en esta carpeta con el id del curso como nombre, por ejemplo programacion-web.jpg.
+Ids: liquidacion-impuestos, programacion-web, gasista-unifuncionales, componentes-metalicos, electricista-inmuebles, administracion-pymes.
+Tambien se aceptan .jpeg, .png y .webp. Recomendado: foto cuadrada de unos 400 px, liviana.
+Las referencias se cargan en src/data/docentes.ts.

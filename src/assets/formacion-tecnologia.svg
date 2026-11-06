@@ -1,0 +1,79 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 440" role="img" aria-label="Formación laboral en construcción con tecnología">
+  <defs>
+    <linearGradient id="fondo" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0" stop-color="#0b4f9c"/>
+      <stop offset="1" stop-color="#3b86ff"/>
+    </linearGradient>
+    <style>
+      .cir { fill: none; stroke: #f9c80e; stroke-width: 3; stroke-linecap: round; opacity: .9; stroke-dasharray: 8 10; animation: flujo 2.5s linear infinite; }
+      .nodo { fill: #f9c80e; }
+      @keyframes flujo { to { stroke-dashoffset: -36; } }
+      @media (prefers-reduced-motion: reduce) { .cir { animation: none; } }
+    </style>
+  </defs>
+  <rect width="600" height="440" rx="24" fill="url(#fondo)"/>
+
+  <!-- trama tecnológica -->
+  <path class="cir" d="M20 90 H120 L150 60 H260"/>
+  <path class="cir" d="M580 120 H500 L470 90 H400"/>
+  <path class="cir" d="M30 300 H100 L130 330 H210"/>
+  <path class="cir" d="M580 280 H520 L490 310 H430"/>
+  <circle class="nodo" cx="20" cy="90" r="6"/><circle class="nodo" cx="260" cy="60" r="6"/>
+  <circle class="nodo" cx="580" cy="120" r="6"/><circle class="nodo" cx="400" cy="90" r="6"/>
+  <circle class="nodo" cx="30" cy="300" r="6"/><circle class="nodo" cx="210" cy="330" r="6"/>
+  <circle class="nodo" cx="580" cy="280" r="6"/><circle class="nodo" cx="430" cy="310" r="6"/>
+
+  <!-- suelo -->
+  <rect x="0" y="380" width="600" height="60" fill="#0a0f14"/>
+  <rect x="0" y="372" width="600" height="8" fill="#f9c80e"/>
+
+  <!-- grúa -->
+  <g stroke="#0a0f14" stroke-width="4" stroke-linejoin="round">
+    <rect x="470" y="130" width="14" height="242" fill="#f9c80e"/>
+    <path d="M477 130 L330 130 L330 112 L540 112 L540 130 Z" fill="#f9c80e"/>
+    <path d="M345 112 L345 200" fill="none"/>
+    <rect x="330" y="200" width="30" height="20" fill="#e8a400"/>
+  </g>
+
+  <!-- edificio en construcción -->
+  <g stroke="#0a0f14" stroke-width="4" stroke-linejoin="round">
+    <rect x="130" y="190" width="190" height="182" fill="#ffffff"/>
+    <rect x="150" y="280" width="40" height="40" fill="#3b86ff"/>
+    <rect x="215" y="280" width="40" height="40" fill="#3b86ff"/>
+    <rect x="280" y="280" width="30" height="40" fill="#3b86ff"/>
+    <rect x="150" y="210" width="40" height="40" fill="#3b86ff"/>
+    <rect x="215" y="210" width="40" height="40" fill="#f9c80e"/>
+    <rect x="130" y="332" width="190" height="40" fill="#e8eef5"/>
+    <path d="M130 190 L320 190 M150 150 L150 190 M225 150 L225 190 M300 150 L300 190" fill="none"/>
+  </g>
+  <!-- wifi sobre el edificio -->
+  <g fill="none" stroke="#f9c80e" stroke-width="5" stroke-linecap="round">
+    <path d="M200 138 a40 40 0 0 1 50 0"/><path d="M210 150 a26 26 0 0 1 30 0"/>
+  </g>
+  <circle class="nodo" cx="225" cy="162" r="5"/>
+
+  <!-- trabajador con casco y tablet -->
+  <g stroke="#0a0f14" stroke-width="4" stroke-linejoin="round">
+    <path d="M395 372 L395 300 Q395 262 430 262 Q465 262 465 300 L465 372 Z" fill="#3b86ff"/>
+    <rect x="405" y="262" width="12" height="110" fill="#f9c80e"/>
+    <circle cx="430" cy="232" r="22" fill="#f4d3b0"/>
+    <path d="M406 230 Q406 200 430 200 Q454 200 454 230 Z" fill="#f9c80e"/>
+    <rect x="402" y="226" width="56" height="8" rx="3" fill="#e8a400"/>
+    <!-- tablet -->
+    <g transform="rotate(-12 420 310)">
+      <rect x="388" y="288" width="58" height="42" rx="5" fill="#0a0f14"/>
+      <rect x="393" y="293" width="48" height="32" rx="2" fill="#bfe0ff" stroke="none"/>
+      <path d="M398 318 L408 308 L418 314 L432 298" fill="none" stroke="#0b4f9c" stroke-width="3"/>
+    </g>
+  </g>
+
+  <!-- engranaje -->
+  <g transform="translate(75 200)">
+    <circle r="30" fill="#f9c80e" stroke="#0a0f14" stroke-width="4"/>
+    <circle r="11" fill="#0b4f9c" stroke="#0a0f14" stroke-width="4"/>
+    <g fill="#f9c80e" stroke="#0a0f14" stroke-width="4">
+      <rect x="-7" y="-42" width="14" height="14"/><rect x="-7" y="28" width="14" height="14"/>
+      <rect x="-42" y="-7" width="14" height="14"/><rect x="28" y="-7" width="14" height="14"/>
+    </g>
+  </g>
+</svg>

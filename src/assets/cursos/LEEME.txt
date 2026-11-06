@@ -1,0 +1,11 @@
+Poné acá una foto por curso (JPG, ancho recomendado 800 px, liviana, menos de 200 KB).
+El nombre del archivo debe ser exactamente el id del curso:
+
+liquidacion-impuestos.jpg
+programacion-web.jpg
+gasista-unifuncionales.jpg
+componentes-metalicos.jpg
+electricista-inmuebles.jpg
+administracion-pymes.jpg
+
+También se aceptan .jpeg, .png y .webp. Si falta alguna, se muestra una ilustración.

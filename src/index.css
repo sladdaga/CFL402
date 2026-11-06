@@ -1,0 +1,286 @@
+﻿/* Estilos globales de todo el sitio. Los colores y medidas se definen una vez como variables (--nombre) y se usan con var(--nombre): para cambiar la paleta, editar acá. */
+:root {
+  --azul: #0b4f9c;
+  --azul-oscuro: #093f7d;
+  --azul-claro: #3b86ff;
+  --amarillo: #f9c80e;
+  --oscuro: #10151c;
+  --texto: #4a5563;
+  --linea: #e6e9ee;
+  --fondo: #f5f3ed; /* crema suave: descansa la vista */
+  --suave: #e9eef3; /* gris azulado claro: secciones alternas y fondos de imágenes */
+  --tarjeta: #ffffff; /* tarjetas, campos y ventanas, para que resalten sobre el fondo */
+  --barra: 58px; /* alto de la barra inferior en celular */
+}
+/* Reinicio básico: box-sizing hace que padding y borde cuenten dentro del ancho; se quitan los márgenes por defecto. */
+* { box-sizing: border-box; margin: 0; }
+/* Desplazamiento suave al tocar un enlace del menú (se desactiva al final con prefers-reduced-motion). */
+html { scroll-behavior: smooth; }
+/* Tipografía del sistema (sin descargar fuentes), colores base y suavizado de texto; se quita el destello gris al tocar en celulares. */
+body {
+  font-family: system-ui, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+  color: var(--texto); background: var(--fondo); line-height: 1.7;
+  -webkit-font-smoothing: antialiased; -webkit-tap-highlight-color: transparent;
+}
+img { max-width: 100%; display: block; }
+h1, h2, h3 { color: var(--oscuro); line-height: 1.1; letter-spacing: -.02em; }
+/* Contenedor centrado: ancho máximo 1080px o el 90% de la pantalla, el menor de los dos. */
+.container { width: min(1080px, 90%); margin-inline: auto; }
+/* Al saltar a una sección con un enlace, deja espacio arriba para que el header fijo no la tape. */
+section[id] { scroll-margin-top: 110px; }
+/* Anillo de foco visible solo al navegar con teclado (accesibilidad). */
+:focus-visible { outline: 3px solid var(--azul-claro); outline-offset: 3px; }
+
+/* Header */
+/* Header pegado arriba (sticky) con fondo blanco translúcido y desenfoque; z-index alto para quedar sobre el contenido. */
+.header { position: sticky; top: 0; z-index: 60; background: rgba(245,243,237,.9); backdrop-filter: blur(10px); border-bottom: 1px solid var(--linea); }
+.header__inner { display: flex; align-items: center; justify-content: space-between; gap: 1.5rem; padding-block: .6rem; }
+.header__logo { height: 84px; width: auto; transition: opacity .15s; }
+/* Al tocar o presionar un logo baja la opacidad: da respuesta visual de que es un enlace. */
+a:active > .header__logo { opacity: .6; }
+.header__logo--uocra { height: 68px; }
+.nav { display: flex; gap: clamp(1rem, 1.8vw, 2rem); }
+/* Enlace a la página de emergencias dentro del menú: en rojo para distinguirlo (el rojo oscuro cumple el contraste sobre el fondo). */
+.nav .nav__emergencia { color: #c62828; font-weight: 600; }
+.nav a { white-space: nowrap; color: var(--oscuro); text-decoration: none; font-size: .95rem; font-weight: 500; position: relative; padding-block: .3rem; }
+/* Subrayado amarillo animado: mide 0 de ancho y crece al pasar el mouse o en el enlace activo (aria-current). */
+.nav a::after { content: ''; position: absolute; left: 0; bottom: 0; width: 0; height: 2px; background: var(--amarillo); transition: width .25s; }
+.nav a:hover::after, .nav a[aria-current='true']::after { width: 100%; }
+.nav a[aria-current='true'] { color: var(--azul); }
+
+/* Botones */
+.btn { display: inline-block; background: var(--azul); color: #fff; padding: .85rem 1.7rem; border-radius: 999px; font-weight: 600; font-size: .95rem; text-decoration: none; border: 0; cursor: pointer; font-family: inherit; transition: transform .2s, background .2s; }
+.btn:hover { transform: translateY(-2px); background: var(--azul-oscuro); }
+/* Variante de botón sin fondo, con aspecto de enlace. */
+.btn--link { background: none; color: var(--oscuro); padding-inline: .5rem; }
+.btn--link:hover { background: none; color: var(--azul); }
+
+/* Hero */
+.hero { padding: clamp(2rem, 5vw, 4rem) 0; }
+.hero__inner { display: grid; grid-template-columns: 1.1fr 1fr; gap: clamp(2rem, 6vw, 5rem); align-items: center; }
+.hero__etiqueta { display: inline-flex; align-items: center; gap: .6rem; font-size: .8rem; font-weight: 600; letter-spacing: .12em; text-transform: uppercase; color: var(--azul); margin-bottom: 1.5rem; }
+/* Rayita amarilla decorativa antes de la etiqueta. */
+.hero__etiqueta::before { content: ''; width: 28px; height: 3px; background: var(--amarillo); }
+.hero h1 { font-size: clamp(2.4rem, 6vw, 4.4rem); margin-bottom: 1.5rem; }
+/* Frase destacada "construir futuro": el degradado azul recorre las letras (brillo) y un subrayado amarillo se dibuja de izquierda a derecha (subrayar). */
+.hero__destacado { position: relative; display: inline-block; color: var(--azul); }
+/* Solo si el navegador soporta texto con degradado (background-clip: text); si no, queda el color azul de arriba y el texto siempre se ve. */
+@supports (background-clip: text) or (-webkit-background-clip: text) {
+  .hero__destacado { background: linear-gradient(90deg, var(--azul), var(--azul-claro), var(--azul)); background-size: 200% 100%; -webkit-background-clip: text; background-clip: text; -webkit-text-fill-color: transparent; animation: brillo 4s linear infinite; }
+}
+.hero__destacado::after { content: ''; position: absolute; left: 0; right: 0; bottom: -.08em; height: .12em; border-radius: 99px; background: var(--amarillo); transform: scaleX(0); transform-origin: left; animation: subrayar .9s .5s cubic-bezier(.2,.8,.2,1) forwards; }
+@keyframes brillo { to { background-position: 200% 0; } }
+@keyframes subrayar { to { transform: scaleX(1); } }
+.hero p { font-size: 1.15rem; max-width: 460px; margin-bottom: 2.2rem; }
+.hero__acciones { display: flex; align-items: center; gap: 1rem; flex-wrap: wrap; }
+.hero__imagen { width: 100%; border-radius: 28px; animation: entrada .8s cubic-bezier(.2,.8,.2,1); }
+/* Animación de entrada de la imagen: aparece subiendo desde 20px abajo (el estado final es el normal del elemento). */
+@keyframes entrada { from { opacity: 0; transform: translateY(20px); } }
+
+/* Secciones */
+.section { padding: clamp(2.5rem, 5vw, 3.5rem) 0; }
+.section--alt { background: var(--suave); }
+.section h2 { font-size: clamp(1.8rem, 4vw, 2.6rem); margin-bottom: 1.8rem; }
+
+/* Cursos: tarjetas con foto o ilustración */
+.grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1.5rem; }
+.card { display: flex; flex-direction: column; gap: .3rem; transition: transform .25s; }
+.card:hover { transform: translateY(-4px); }
+.card__img { width: 100%; aspect-ratio: 4 / 3; background: var(--suave); border-radius: 20px; padding: 12%; margin-bottom: .8rem; fill: none; stroke: var(--azul); stroke-width: 2.5; stroke-linecap: round; stroke-linejoin: round; transition: background .25s; }
+.card:hover .card__img { background: #eaf2ff; }
+.card__img .acento { fill: var(--amarillo); }
+.card__img .acento-linea { stroke: var(--amarillo); }
+.card__foto { width: 100%; aspect-ratio: 4 / 3; object-fit: cover; border-radius: 20px; margin-bottom: .8rem; transition: transform .35s; }
+.card:hover .card__foto { transform: scale(1.02); }
+.card__num { font-size: .8rem; font-weight: 700; color: var(--azul); }
+.card h3 { font-size: 1.1rem; }
+.card p { font-size: .92rem; }
+.card small { margin-top: .3rem; font-size: .78rem; opacity: .8; }
+
+/* Formulario */
+/* Margen superior negativo: acerca el texto al título de la sección (que tiene margen inferior de 2.5rem). */
+.form__intro { margin: -.8rem 0 1.5rem; max-width: 560px; }
+/* Botón "Ver docente a cargo" al pie de cada tarjeta de curso (margin-top: auto lo alinea abajo aunque los textos tengan distinto largo). */
+.card__docente { align-self: flex-start; margin-top: auto; padding: .5rem 1rem; border: 1.5px solid var(--azul); border-radius: 99px; background: transparent; color: var(--azul); font: inherit; font-size: .85rem; font-weight: 600; cursor: pointer; transition: background .2s, color .2s; }
+.card__docente:hover { background: var(--azul); color: #fff; }
+.card small { margin-bottom: .6rem; }
+
+/* Ventana emergente del docente (elemento <dialog>): el fondo oscuro es su ::backdrop. */
+.docente { border: 0; padding: 0; margin: auto; border-radius: 24px; width: min(520px, calc(100% - 2rem)); max-height: calc(100dvh - 2rem); overflow: auto; background: var(--tarjeta); color: var(--texto); box-shadow: 0 24px 60px rgba(0,0,0,.35); }
+.docente::backdrop { background: rgba(16,21,28,.6); backdrop-filter: blur(4px); }
+.docente[open] { animation: subir .35s cubic-bezier(.2,.8,.2,1); }
+.docente__contenido { position: relative; padding: 2rem 1.6rem 1.8rem; display: flex; flex-direction: column; align-items: center; text-align: center; gap: .4rem; }
+.docente__foto { width: 140px; height: 140px; border-radius: 50%; object-fit: cover; margin-bottom: .6rem; }
+.docente__foto--iniciales { display: grid; place-items: center; background: var(--azul); color: #fff; font-size: 2.6rem; font-weight: 700; letter-spacing: .04em; }
+.docente .hero__etiqueta { margin-bottom: .3rem; }
+.docente h2 { font-size: 1.6rem; margin: 0; }
+.docente__curso { color: var(--azul); font-weight: 600; font-size: .9rem; }
+.docente__referencias { list-style: none; padding: 0; margin-top: .8rem; width: 100%; display: grid; gap: .6rem; text-align: left; }
+.docente__referencias li { position: relative; padding-left: 1.3rem; font-size: .92rem; line-height: 1.55; }
+.docente__referencias li::before { content: ''; position: absolute; left: 0; top: .6em; width: 8px; height: 8px; border-radius: 50%; background: var(--amarillo); }
+.docente__cerrar { position: absolute; top: .6rem; right: .7rem; width: 44px; height: 44px; border: 0; border-radius: 50%; background: var(--fondo); color: var(--oscuro); font-size: 1.7rem; line-height: 1; cursor: pointer; transition: transform .2s; }
+.docente__cerrar:hover { transform: rotate(90deg); }
+
+/* Formulario adaptable: dos columnas cuando hay lugar (cada una de al menos 220px o el ancho disponible) y una sola en pantallas angostas,
+   sin depender de un punto de corte fijo. min-width: 0 evita que los campos ensanchen la grilla y desborden la pantalla. */
+.form { display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 220px), 1fr)); gap: 1.2rem; max-width: 720px; width: 100%; }
+.form label { min-width: 0; display: flex; flex-direction: column; gap: .4rem; font-size: .85rem; font-weight: 600; color: var(--oscuro); }
+.form input, .form select { width: 100%; min-width: 0; text-overflow: ellipsis; padding: .85rem 1rem; border: 1px solid #b8c2cf; border-radius: 12px; font: inherit; font-size: 1rem; color: var(--oscuro); background: #fff; transition: border-color .2s, box-shadow .2s; }
+.form input:focus-visible, .form select:focus-visible { outline: 2px solid var(--azul); outline-offset: 1px; border-color: var(--azul); box-shadow: 0 0 0 4px rgba(59,134,255,.25); }
+/* Hace que el elemento ocupe todo el ancho de las dos columnas del formulario. */
+.form__full { grid-column: 1 / -1; }
+.form .btn { justify-self: start; }
+.form__nota { grid-column: 1 / -1; font-size: .8rem; }
+.form__ok { grid-column: 1 / -1; background: #e8f5ec; color: #14532d; border-radius: 12px; padding: .8rem 1rem; font-size: .9rem; }
+
+/* Nosotros y mapa */
+.section p.lead { font-size: 1.25rem; max-width: 680px; color: var(--oscuro); }
+/* El mapa se ve algo desaturado (grayscale) para integrarse con la paleta. */
+.map { width: 100%; height: 400px; border: 0; border-radius: 20px; filter: grayscale(.25); }
+
+/* Autoridades */
+.autoridad { display: grid; grid-template-columns: 220px 1fr; gap: clamp(1.5rem, 4vw, 3rem); align-items: start; border-top: 1px solid var(--linea); padding-top: 2rem; }
+.autoridad__foto { width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 24px; }
+/* Versión sin foto: recuadro azul con las iniciales centradas. */
+.autoridad__foto--iniciales { display: grid; place-items: center; background: var(--azul); color: #fff; font-size: 3.5rem; font-weight: 700; letter-spacing: .04em; }
+.autoridad h3 { font-size: 1.8rem; margin-bottom: 1rem; }
+.autoridad ul { list-style: none; padding: 0; display: grid; gap: .7rem; }
+.autoridad li { position: relative; padding-left: 1.4rem; }
+/* Viñeta redonda amarilla personalizada (se quitó la viñeta estándar con list-style: none). */
+.autoridad li::before { content: ''; position: absolute; left: 0; top: .7em; width: 8px; height: 8px; border-radius: 50%; background: var(--amarillo); }
+
+/* Footer y redes sociales */
+.footer { border-top: 1px solid var(--linea); padding: 2rem 0; text-align: center; font-size: .85rem; }
+.footer__inner { display: grid; gap: 1.2rem; justify-items: center; }
+.redes__fila { display: flex; gap: 2.5rem; flex-wrap: wrap; justify-content: center; }
+.redes__grupo { display: grid; gap: .7rem; justify-items: center; }
+.redes__titulo { font-size: .75rem; font-weight: 600; letter-spacing: .08em; text-transform: uppercase; color: var(--oscuro); }
+.redes { list-style: none; padding: 0; display: flex; gap: .8rem; }
+.redes a { display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; border: 1px solid var(--linea); color: var(--oscuro); transition: background .2s, color .2s, transform .2s; }
+.redes a:hover { background: var(--azul); color: #fff; transform: translateY(-2px); }
+
+/* WhatsApp flotante */
+/* Botón de WhatsApp fijo en la esquina inferior derecha, por encima del resto (z-index 70; el popup usa 100). */
+.wsp { position: fixed; right: 1.2rem; bottom: 1.2rem; width: 56px; height: 56px; border-radius: 50%; background: #25d366; display: grid; place-items: center; box-shadow: 0 6px 18px rgba(0,0,0,.25); z-index: 70; transition: transform .2s; }
+.wsp:hover { transform: scale(1.08); }
+.wsp:focus-visible { outline-color: var(--oscuro); }
+
+
+/* Popup */
+/* Fondo oscuro que cubre toda la pantalla (inset: 0) y centra el popup; z-index 100 para estar sobre todo. */
+.popup__overlay { position: fixed; inset: 0; background: rgba(16,21,28,.6); backdrop-filter: blur(4px); display: grid; place-items: center; padding: 1rem; z-index: 100; animation: fade .3s ease; }
+/* max-height con 100dvh (alto real visible en celulares) y overflow: auto permiten desplazar el popup si no entra en pantalla. */
+.popup { position: relative; display: grid; grid-template-columns: 1fr 1fr; width: min(740px, 100%); max-height: calc(100dvh - 2rem); overflow: auto; background: #fff; border-radius: 24px; box-shadow: 0 24px 60px rgba(0,0,0,.35); animation: subir .45s cubic-bezier(.2,.8,.2,1); }
+.popup:focus { outline: none; }
+.popup__imagen { background: var(--azul); display: grid; place-items: center; padding: 1.5rem; }
+.popup__imagen img { max-height: 260px; width: auto; border-radius: 14px; background: #fff; animation: flotar 3s ease-in-out infinite; }
+.popup__contenido { padding: 2.2rem; display: flex; flex-direction: column; gap: .9rem; justify-content: center; align-items: flex-start; }
+.popup__contenido h2 { font-size: 2rem; margin: 0; }
+.popup__etiqueta { background: var(--amarillo); color: var(--oscuro); padding: .15rem .75rem; border-radius: 99px; font-size: .75rem; font-weight: 700; }
+.popup__cerrar { position: absolute; top: .6rem; right: .7rem; width: 44px; height: 44px; border: 0; border-radius: 50%; background: #fff; color: var(--oscuro); font-size: 1.7rem; line-height: 1; cursor: pointer; transition: transform .2s; z-index: 1; }
+.popup__cerrar:hover { transform: rotate(90deg); }
+/* Animaciones del popup: fondo que aparece, ventana que sube y logo que flota. */
+@keyframes fade { from { opacity: 0 } }
+@keyframes subir { from { opacity: 0; transform: translateY(30px) scale(.96) } }
+@keyframes flotar { 50% { transform: translateY(-8px) } }
+
+/* Guía de inscripción (diagrama de flujo) */
+/* Tres columnas de etapas con una columna angosta (auto) de flecha entre cada par. */
+.flujo { list-style: none; padding: 0; display: grid; grid-template-columns: 1fr auto 1fr auto 1fr; gap: 1rem; align-items: stretch; }
+.flujo__flecha { align-self: center; font-size: 1.8rem; font-weight: 700; color: var(--amarillo); line-height: 1; }
+/* Puntos del carrusel: ocultos en computadora (se muestran en el bloque de celular). Cada botón mide 24 px de alto para que sea fácil de tocar; el punto visible es el ::before. */
+.flujo__puntos { display: none; }
+.flujo__punto { width: 28px; height: 24px; border: 0; background: none; padding: 0; cursor: pointer; display: grid; place-items: center; }
+.flujo__punto::before { content: ''; width: 8px; height: 8px; border-radius: 99px; background: #c3ccd8; transition: width .25s, background .25s; }
+.flujo__punto[aria-current='true']::before { width: 22px; background: var(--azul); }
+.etapa { background: var(--tarjeta); border-radius: 24px; padding: 1.6rem; border-top: 4px solid var(--azul); }
+.etapa__cabecera { display: flex; align-items: center; gap: .9rem; margin-bottom: .8rem; }
+.etapa__num { flex: none; display: grid; place-items: center; width: 44px; height: 44px; border-radius: 50%; background: var(--azul); color: #fff; font-weight: 700; font-size: 1.2rem; }
+.etapa__rotulo { font-size: .72rem; font-weight: 700; letter-spacing: .1em; text-transform: uppercase; color: var(--azul); }
+.etapa h3 { font-size: 1.2rem; }
+.etapa__resumen { font-size: .9rem; margin-bottom: 1.2rem; }
+/* Numeración personalizada con contadores CSS: counter-reset inicia el contador, counter-increment lo suma en cada paso y ::before lo muestra en el círculo amarillo. */
+.pasos { list-style: none; padding: 0; counter-reset: paso; display: grid; gap: .55rem; }
+.pasos li { counter-increment: paso; position: relative; background: var(--fondo); border: 1px solid var(--linea); border-radius: 12px; padding: .6rem .8rem .6rem 2.6rem; font-size: .9rem; line-height: 1.45; }
+.pasos li::before { content: counter(paso); position: absolute; left: .7rem; top: .6rem; width: 1.4rem; height: 1.4rem; border-radius: 50%; background: var(--amarillo); color: var(--oscuro); font-size: .75rem; font-weight: 700; display: grid; place-items: center; }
+/* Pequeña línea amarilla que conecta cada paso con el siguiente (no se dibuja en el último). */
+.pasos li:not(:last-child)::after { content: ''; position: absolute; left: 1.4rem; top: 100%; width: 2px; height: .55rem; background: var(--amarillo); }
+.pasos strong { color: var(--azul); font-weight: 600; }
+.guia__boton { margin-top: 1.5rem; }
+.requisito { margin-top: 2rem; background: #fff8dc; border-left: 4px solid var(--amarillo); border-radius: 12px; padding: .9rem 1.1rem; font-size: .92rem; color: var(--oscuro); }
+/* En el formulario el aviso no necesita margen superior (el espaciado lo da la grilla). */
+.form .requisito { margin-top: 0; }
+
+/* Aparición al hacer scroll: activarAparicion() (src/utils/aparecerAlScroll.ts) agrega .reveal a las secciones que todavía no se ven
+   y .reveal--visible cuando entran en pantalla. Sin JavaScript o con "reducir movimiento" activado nunca se ocultan. */
+.reveal { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s cubic-bezier(.2,.8,.2,1); }
+.reveal--visible { opacity: 1; transform: none; }
+
+/* Emoji del menú: oculto en computadora (se muestra en el bloque de celular, más abajo). */
+.nav__emoji { display: none; }
+
+/* Enlace del pie de página hacia la página de emergencias. */
+.footer__enlace { color: var(--oscuro); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; }
+
+/* Barra inferior tipo app (hasta 1024px de ancho: celulares y tablets). Arriba de eso el menú se queda en el header porque ahí hay lugar.
+   --barra es el alto de la barra; env(safe-area-inset-*) es el espacio que reservan el notch y la barra de gestos de iOS/Android
+   (funciona gracias a viewport-fit=cover en index.html). */
+@media (max-width: 1024px) {
+  html { overflow-x: clip; }
+  section[id] { scroll-margin-top: 96px; }
+  /* Margen inferior para que la barra fija no tape el final de la página. */
+  body { padding-bottom: calc(var(--barra) + env(safe-area-inset-bottom)); }
+  /* Respeta el notch arriba; se simplifica el fondo (sin desenfoque). */
+  .header { padding-top: env(safe-area-inset-top); backdrop-filter: none; background: var(--fondo); }
+  .header__logo { height: 72px; }
+  .header__logo--uocra { height: 56px; }
+  /* El menú se saca del header y se fija abajo ocupando todo el ancho; su padding-bottom evita la zona de gestos. */
+  .nav { position: fixed; left: 0; right: 0; bottom: 0; justify-content: space-around; gap: 0; background: var(--fondo); border-top: 1px solid var(--linea); padding-bottom: env(safe-area-inset-bottom); }
+  .nav a { flex: 1; display: grid; place-items: center; align-content: center; gap: .1rem; min-height: 56px; min-width: 0; text-align: center; overflow-wrap: anywhere; padding: .3rem 0; font-size: .66rem; }
+  /* El emoji aparece sobre el texto solo en la barra de celular. */
+  .nav__emoji { display: block; font-size: 1.25rem; line-height: 1; }
+  .nav a::after { display: none; }
+  /* En la barra inferior el enlace activo se marca con una línea amarilla arriba (inset box-shadow) en vez del subrayado. */
+  .nav a[aria-current='true'] { box-shadow: inset 0 3px 0 var(--amarillo); }
+  /* El botón de WhatsApp se sube para no quedar tapado por la barra inferior (+14px de separación). */
+  .wsp { bottom: calc(var(--barra) + env(safe-area-inset-bottom) + 14px); }
+}
+
+/* Celular y tablet chica (hasta 800px): el resto del diseño pasa a una columna o a dos. */
+@media (max-width: 800px) {
+  .hero__inner { grid-template-columns: 1fr; }
+  .grid { grid-template-columns: repeat(2, 1fr); gap: 1.2rem .8rem; }
+  .card h3 { font-size: .95rem; }
+  .card p { font-size: .8rem; }
+  .card__docente { font-size: .72rem; padding: .45rem .8rem; }
+  .card__img, .card__foto { border-radius: 14px; }
+  /* En celular el botón de envío ocupa todo el ancho (más fácil de tocar) y el formulario baja a una columna. */
+  .form { grid-template-columns: 1fr; gap: 1rem; }
+  .form .btn { justify-self: stretch; text-align: center; padding: 1rem 1.2rem; }
+  /* Autoridad en celular: foto a la izquierda (columna angosta) y descripción a la derecha; se achican los textos para que entren. */
+  /* align-items: center centra la foto verticalmente respecto de la descripción. */
+  .autoridad { grid-template-columns: 104px 1fr; gap: 1rem; align-items: center; }
+  .autoridad__foto { border-radius: 16px; }
+  .autoridad__foto--iniciales { font-size: 2rem; }
+  .autoridad h3 { font-size: 1.3rem; margin-bottom: .7rem; }
+  .autoridad ul { gap: .5rem; }
+  /* Párrafos justificados con corte de palabras automático (hyphens, usa el idioma es del HTML) para que no queden huecos grandes en la columna angosta. */
+  .autoridad li { font-size: .85rem; line-height: 1.5; padding-left: 1.1rem; text-align: justify; hyphens: auto; -webkit-hyphens: auto; overflow-wrap: break-word; }
+  .autoridad li::before { width: 6px; height: 6px; top: .6em; }
+  /* Carrusel: las etapas van en una fila que se desliza con el dedo y cada tarjeta se "engancha" al borde (scroll-snap).
+     Los márgenes negativos hacen que la fila llegue hasta los bordes de la pantalla (el contenedor deja 5% a cada lado). */
+  .flujo { position: relative; grid-template-columns: none; grid-auto-flow: column; grid-auto-columns: 84%; gap: .8rem; overflow-x: auto; scroll-snap-type: x mandatory; scroll-padding-inline: 5vw; margin-inline: -5vw; padding: 0 5vw .4rem; scrollbar-width: none; -webkit-overflow-scrolling: touch; overscroll-behavior-x: contain; }
+  .flujo::-webkit-scrollbar { display: none; }
+  .etapa { scroll-snap-align: start; }
+  /* Las flechas no hacen falta: el movimiento lateral y los puntos indican el orden. */
+  .flujo__flecha { display: none; }
+  .flujo__puntos { display: flex; justify-content: center; gap: .3rem; margin-top: .6rem; }
+  .popup { grid-template-columns: 1fr; }
+  .popup__imagen img { max-height: 150px; }
+}
+
+/* Accesibilidad: si el usuario pidió menos movimiento en su sistema, se reducen casi a cero las animaciones y transiciones y se desactiva el scroll suave. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
+  html { scroll-behavior: auto; }
+}
