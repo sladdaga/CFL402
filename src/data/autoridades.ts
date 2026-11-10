@@ -21,4 +21,14 @@ export const autoridades: Autoridad[] = [
       'Colaborador en un proyecto de investigación del P.I.T. Maderas, Facultad de Arquitectura.',
     ],
   },
+  {
+    id: 'maria-lacuadra',
+    nombre: 'María de los Ángeles Lacuadra',
+    cargo: 'Secretaria',
+    referencias: [
+      'Secundario completo (E.E.M. N° 6) y Operadora de Informática de Oficina.',
+      'Tareas administrativas para Fundación UOCRA en el Centro de Formación Profesional N° 407 de Mar del Plata (2007-2016), con cursos FICS, cursos PNCT y el plan «Jóvenes con Más y Mejor Trabajo».',
+      'Secretaria del Centro de Formación Laboral N° 402 de Coronel Vidal desde 2017.',
+    ],
+  },
 ]

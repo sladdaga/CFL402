@@ -284,3 +284,19 @@ a:active > .header__logo { opacity: .6; }
   *, *::before, *::after { animation-duration: .01ms !important; animation-iteration-count: 1 !important; transition-duration: .01ms !important; }
   html { scroll-behavior: auto; }
 }
+
+/* Nosotros: textos institucionales, misión/visión en dos tarjetas, listas con viñeta amarilla (igual que Autoridades). */
+.nosotros__texto { max-width: 760px; display: grid; gap: 1rem; }
+.nosotros__texto p, .nosotros__par p { margin: 0; }
+.nosotros__titulo { font-size: 1.5rem; margin: 2.4rem 0 1rem; }
+.nosotros__mas summary { cursor: pointer; font-weight: 700; color: var(--azul); }
+.nosotros__mas p { margin-top: 1rem; }
+.nosotros__par { display: grid; grid-template-columns: repeat(2, 1fr); gap: 1.2rem; margin-top: 2.4rem; }
+.nosotros__par .etapa { display: grid; gap: .9rem; align-content: start; }
+.nosotros__lista { list-style: none; padding: 0; display: grid; gap: .7rem; max-width: 760px; }
+.nosotros__lista li { position: relative; padding-left: 1.4rem; }
+.nosotros__lista li::before { content: ''; position: absolute; left: 0; top: .7em; width: 8px; height: 8px; border-radius: 50%; background: var(--amarillo); }
+@media (max-width: 720px) {
+  .nosotros__par { grid-template-columns: 1fr; }
+  .nosotros__texto, .nosotros__lista { font-size: .95rem; }
+}
