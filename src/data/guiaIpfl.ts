@@ -3,7 +3,7 @@
 export const PLATAFORMA_IPFL = 'https://cursosipfl.trabajo.gba.gob.ar/'
 
 // Aviso que se muestra en la guía y en el formulario de inscripción.
-export const REQUISITO_DNI = 'Al momento de concretar la inscripción, deben llevar al centro una fotocopia del DNI.'
+export const REQUISITO_DNI = 'Al momento de concretar la inscripción, deben llevar al centro una fotocopia del DNI y una fotocopia del título de estudios primarios o secundarios completos.'
 
 // Cada etapa tiene un id único, un título, un resumen y una lista de pasos (se numeran solos).
 export interface Etapa {
